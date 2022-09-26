@@ -3,43 +3,15 @@
  */
 package gradle.demo;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableValue;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import com.google.gson.Gson;
 import java.net.SocketException;
 
-class BagOfPrimitives {
-	private int value1 = 1;
-	private String value2 = "abc";
-	public double value3 = 4.0;
-	BagOfPrimitives() {
-		// no-args constructor
-	}
-}
-
-
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
-
-	public static void testJson () {
-		// Serialization
-		BagOfPrimitives obj = new BagOfPrimitives();
-		Gson gson = new Gson();
-		String json = "{`value1`:1,`value2`:`abc`,`value3`:4.2}".replace('`','"'); //gson.toJson(obj);
-		System.out.println(json);
-		BagOfPrimitives obj2 = gson.fromJson(json, BagOfPrimitives.class);
-		System.out.println(obj2.value3);
-	}
-
     public static void main(String[] args) {
-		System.out.println(new App().getGreeting());
 
-		testJson();
+		//start the network table server
+        (new Thread(new MyRunnable())).start();
 
+		//start UDP socket listener
 		UDPServer client;
 		try{
 			client = new UDPServer(4001);
@@ -49,28 +21,5 @@ public class App {
 			return;
 		}
 
-        (new Thread(new MyRunnable())).start();
-
-		NetworkTableInstance inst = NetworkTableInstance.getDefault();
-		NetworkTable table = inst.getTable("datatable");
-		NetworkTableEntry xEntry = table.getEntry("x");
-		NetworkTableEntry yEntry = table.getEntry("y");
-		NetworkTableEntry zEntry = table.getEntry("z");
-		NetworkTableValue z = NetworkTableValue.makeDouble(1.2);
-		zEntry.setValue(z);
-		inst.startClient("127.0.0.1");  // where TEAM=190, 294, etc, or use inst.startClient("hostname") or similar
-		//inst.startDSClient();  // recommended if running on DS computer; this gets the robot IP from the DS
-		while (true) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException ex) {
-				System.out.println("interrupted");
-				return;
-			}
-			double x = xEntry.getDouble(0.0);
-			double y = yEntry.getDouble(0.0);
-			double z0 = zEntry.getDouble(0.0);
-			System.out.println("X: " + x + " Y: " + y+ " Z: " + z0);
-		}
 	}
 }
