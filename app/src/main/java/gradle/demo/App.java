@@ -5,6 +5,7 @@ package gradle.demo;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class App {
@@ -21,6 +22,9 @@ public class App {
 		NetworkTable table = inst.getTable("datatable");
 		NetworkTableEntry xEntry = table.getEntry("x");
 		NetworkTableEntry yEntry = table.getEntry("y");
+		NetworkTableEntry zEntry = table.getEntry("z");
+		NetworkTableValue z = NetworkTableValue.makeDouble(1.2);
+		zEntry.setValue(z);
 		inst.startClient("127.0.0.1");  // where TEAM=190, 294, etc, or use inst.startClient("hostname") or similar
 		//inst.startDSClient();  // recommended if running on DS computer; this gets the robot IP from the DS
 		while (true) {

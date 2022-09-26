@@ -12,7 +12,7 @@ public class MyRunnable implements Runnable {
     public void run() {
         System.out.println("Hello from a thread!");
 		NetworkTableInstance inst = NetworkTableInstance.create();
-		inst.startServer();
+		inst.startServer("networktables.ini","0.0.0.0");
 
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         while (true) {
