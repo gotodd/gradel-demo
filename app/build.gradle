@@ -31,8 +31,8 @@ dependencies {
 
     // Add ntcore-jni for runtime. We are adding all supported platforms
     // so that our application will work on all supported platforms.
-    //implementation "edu.wpi.first.ntcore:ntcore-jni:VERSION:linuxx86-64"
-    //implementation "edu.wpi.first.ntcore:ntcore-jni:VERSION:linuxraspbian"
+    implementation "edu.wpi.first.ntcore:ntcore-jni:VERSION:linuxx86-64"
+    implementation "edu.wpi.first.ntcore:ntcore-jni:VERSION:linuxraspbian"
     implementation "edu.wpi.first.ntcore:ntcore-jni:2022.4.1:osxx86-64"
 }
 
