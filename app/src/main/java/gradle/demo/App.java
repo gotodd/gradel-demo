@@ -36,7 +36,8 @@ public class App {
 			}
 			double x = xEntry.getDouble(0.0);
 			double y = yEntry.getDouble(0.0);
-			System.out.println("X: " + x + " Y: " + y);
+			double z0 = zEntry.getDouble(0.0);
+			System.out.println("X: " + x + " Y: " + y+ " Z: " + z0);
 		}
 	}
 }
