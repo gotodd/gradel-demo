@@ -7,14 +7,36 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import com.google.gson.Gson;
+
+class BagOfPrimitives {
+	private int value1 = 1;
+	private String value2 = "abc";
+	public double value3 = 4.0;
+	BagOfPrimitives() {
+		// no-args constructor
+	}
+}
+
 
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
+	public static void testJson () {
+		// Serialization
+		BagOfPrimitives obj = new BagOfPrimitives();
+		Gson gson = new Gson();
+		String json = "{`value1`:1,`value2`:`abc`,`value3`:4.2}".replace('`','"'); //gson.toJson(obj);
+		System.out.println(json);
+		BagOfPrimitives obj2 = gson.fromJson(json, BagOfPrimitives.class);
+		System.out.println(obj2.value3);
+	}
+
     public static void main(String[] args) {
 		System.out.println(new App().getGreeting());
+		testJson();
 
         (new Thread(new MyRunnable())).start();
 
