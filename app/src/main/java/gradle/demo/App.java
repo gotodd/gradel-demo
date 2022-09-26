@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import com.google.gson.Gson;
+import java.net.SocketException;
 
 class BagOfPrimitives {
 	private int value1 = 1;
@@ -36,7 +37,17 @@ public class App {
 
     public static void main(String[] args) {
 		System.out.println(new App().getGreeting());
+
 		testJson();
+
+		UDPServer client;
+		try{
+			client = new UDPServer(4001);
+			client.listen();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
 
         (new Thread(new MyRunnable())).start();
 
